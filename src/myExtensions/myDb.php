@@ -13,8 +13,12 @@ class myDb {
     public $errorhandler = null;
 
 
-    public function __construct($host, $database, $user, $pass)
+    public function __construct($host, $database, $user, $pass, $errorHandler = null)
     {
+        
+        if($errorHandler){
+            $this->errorhandler = $errorHandler;
+        }
         
         $dsn = 'mysql:host=' . $host . ';dbname=' . $database;
         

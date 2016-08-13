@@ -52,7 +52,7 @@ class myDb {
     
     public function setError(\Exception $exception){
         $this->error = $exception->getMessage();
-        if (!is_callable($this->errorhandler)) {
+        if ($this->errorhandler && is_callable($this->errorhandler)) {
             $f = $this->errorhandler;
             $f($exception);
         }

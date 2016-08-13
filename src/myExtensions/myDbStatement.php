@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 
 
-class mydbStatement {
+class myDbStatement {
     
     private $_pdo;
     private $_stmt;

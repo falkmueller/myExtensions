@@ -1,5 +1,5 @@
-# mydb
-## PHP PDO MySql database wrapper
+# myExtensions
+## simple PHP Classes
 
 ### Install over composer
 composer.json
@@ -8,20 +8,23 @@ composer.json
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/falkmueller/databass_class.git"
+            "url": "https://github.com/falkmueller/myExtensions.git"
         }
     ],
     "require": {
-        "falkm/mydb": "dev-develop"
+        "falkm/myExtensions": "dev-develop"
     }
 }
 ```
+
+# mydb
+## PHP PDO MySql database wrapper
 
 ### Use
 
 Create Connection
 ```php
-    $db = new \mydb\mydb("localhost", "test", "root", "");
+    $db = new \myExtensions\mydb("localhost", "test", "root", "");
 ```
 
 Insert Statement with Parameter
@@ -35,3 +38,24 @@ Select Statement with multible parameter
     $statement = $db->createQuery("SELECT * FROM testtbl where test in (:name)", array(":name" => array("falk3", "falk2")));
     print_r($statement->fetchAll());
 ```
+
+# myHook
+```php
+    \myExtensions\myHook::Instance()->->registrate("MvcRouterCall:filter", function($instance, $returnvalue, $data){
+            $returnvalue["action"] = "index";
+            return $returnvalue;
+        });
+```
+
+```php
+    \myExtensions\myHook::Instance()->->registrate("MvcRouterCall:filter", array($this, 'functionname'));
+```
+
+```php
+    \myExtensions\myHook::Instance()->->filter("MvcRouterCall:filter", $this, $routerArguments);
+```
+
+# mySession
+
+
+

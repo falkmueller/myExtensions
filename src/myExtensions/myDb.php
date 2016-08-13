@@ -6,7 +6,7 @@ use PDO;
 use PDOException;
 
 
-class mydb {
+class myDb {
     
     private $_pdo;
     public $error = null;

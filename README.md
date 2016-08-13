@@ -52,7 +52,11 @@ Select Statement with multible parameter
 ```
 
 ```php
-    \myExtensions\myHook::Instance()->->filter("MvcRouterCall:filter", $this, $routerArguments);
+    \myExtensions\myHook::Instance()->filter("MvcRouterCall:filter", $this, $routerArguments);
+```
+
+```php
+    \myExtensions\myHook::Instance()->notify("MvcRouterCall:before", $this, $routerArguments);
 ```
 
 # mySession

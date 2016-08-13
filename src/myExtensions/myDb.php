@@ -31,7 +31,7 @@ class myDb {
     }
     
     public function createQuery($query = "", $params = array()){
-        $dp_query = new mydbStatement($this->_pdo);
+        $dp_query = new myDbStatement($this->_pdo);
         if($query){
             $dp_query->setQuery($query);
         }

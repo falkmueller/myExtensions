@@ -52,7 +52,7 @@ Select Statement with multible parameter
 ```
 
 ```php
-    \myExtensions\myHook::Instance()->filter("MvcRouterCall:filter", $this, $routerArguments);
+    $routerArguments = \myExtensions\myHook::Instance()->filter("MvcRouterCall:filter", $this, $routerArguments);
 ```
 
 ```php
@@ -60,6 +60,10 @@ Select Statement with multible parameter
 ```
 
 # mySession
-
+```php
+    echo \myExtensions\mySession::Instance()->get("name", "default");
+    \myExtensions\mySession::Instance()->put("name", "falk");
+    echo \myExtensions\mySession::Instance()->get("name");
+```
 
 

@@ -1,0 +1,28 @@
+{
+    "name": "falkm/myExtensions",
+    "type": "library",
+    "description": "Simple Class Libraries",
+    "keywords": [
+        "php",
+        "session",
+        "hook"
+    ],
+    "homepage": "http://falk-m.de/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Falk Müller",
+            "email": "git@falk-m.de"
+        }
+    ],
+    "support": {
+        "email": "git@falk-m.de",
+        "wiki": "http://falk-m.de/"
+    },
+    "require": {
+        "php": ">=5.1.0"
+    },
+    "autoload": {
+        "psr-0": { "myExtensions": "src/" }
+    }
+}

@@ -8,7 +8,7 @@ use PDOException;
 
 class myDbStatement {
     
-    private $_pdo;
+    private $_myDb;
     private $_stmt;
     
     private $_query = "";
@@ -17,9 +17,9 @@ class myDbStatement {
 
     public $error = null;
 
-    public function __construct(&$pdo)
+    public function __construct(&$myDb)
     {
-        $this->_pdo = $pdo;
+        $this->_myDb = $myDb;
     }
     
     public function setQuery($query){
@@ -48,7 +48,7 @@ class myDbStatement {
             }
         }
         
-        $this->_stmt = $this->_pdo->prepare($query);
+        $this->_stmt = $this->_myDb->pdo->prepare($query);
 
         if($params){
             foreach ($params as $name => $param){
@@ -61,6 +61,7 @@ class myDbStatement {
         }
         catch(PDOException $e) {
             $this->error = $e->getMessage();
+            $this->_myDb->setError($e);
             return false;
         }
         
@@ -93,7 +94,7 @@ class myDbStatement {
     
     public function lastInsertId()
     {
-        return $this->_pdo->lastInsertId();
+        return $this->_myDb->pdo->lastInsertId();
     }
     
     public function bind($param, $value, $type = null){

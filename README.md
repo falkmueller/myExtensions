@@ -39,6 +39,45 @@ Select Statement with multible parameter
     print_r($statement->fetchAll());
 ```
 
+# myEntity
+first, set global myDb-Instance for Entity-Model
+```php
+\myExtensions\myEntity::$db = $db;
+```
+
+create entitys
+```php
+class user extends \myExtensions\myEntity {
+    
+
+    protected static $_table = "user";
+    
+    public static function fields(){
+        return array(
+            "id" => array('type' => 'integer', 'primary' => true, 'autoincrement' => true),
+            "name" => array('type' => 'string', "default" => ""),
+            "password" => array('type' => 'string', "default" => ""),
+        );
+    }
+}
+```
+
+work with entity
+```php
+    $user1 = \app\entity\user::selectOne(array("id" => 1));
+    $new = new \app\entity\user(array("id" => 1, "name" => "mueller"));
+    if($new->exists()){
+        echo "exists";
+    } else {
+        $new->insert();
+    }
+
+    $new->name = "falk";
+    $new->update();
+
+    echo json_encode($a->toArray());
+```
+
 # myHook
 ```php
     \myExtensions\myHook::Instance()->->registrate("MvcRouterCall:filter", function($instance, $returnvalue, $data){

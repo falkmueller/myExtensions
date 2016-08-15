@@ -2,7 +2,7 @@
 
 namespace myExtensions;
 
-class myEntity {
+class myEntity implements \ArrayAccess {
     public static $db;
     
     protected static $_table = null;
@@ -43,6 +43,28 @@ class myEntity {
         unset($array["_data"]);
         
         return $array;
+    }
+    
+    /*Array Accesss*/
+        
+    public function offsetExists ($offset)
+    {
+         return $this->$offset;
+    }
+ 
+    public function offsetGet ($offset)
+    {
+        return $this->$offset;    
+    }
+ 
+    public function offsetSet ($offset, $value)
+    {
+        $this->$offset = $value;
+    }
+ 
+    public function offsetUnset ($offset)
+    {
+       
     }
     
     /*SQL FUnctions #######################################*/

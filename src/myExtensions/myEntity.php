@@ -146,6 +146,27 @@ class myEntity implements \ArrayAccess {
         
         return false;
     }
+    
+    public function delete(){
+        $params = array();
+        $where_sql = array();
+        
+        $fields = static::fields();
+        foreach ($fields as $key => $field){
+            if (!empty($field["primary"])){
+               $where_sql[] = "`{$key}` = :{$key}";
+                $params[":".$key] = $this->$key;
+            }
+        }
+        
+        if(empty($where_sql)){
+            return false;
+        }
+        
+        $sql = "DELETE FROM `".static::$_table."` WHERE ".implode(" AND ", $where_sql);
+        $statement = SELF::$db->createQuery($sql, $params);
+        return $statement->execute();
+    }
 
     public static function selectOne($where = array()){
         $res = static::select($where, "", 0, 1);

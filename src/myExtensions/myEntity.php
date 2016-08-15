@@ -190,7 +190,12 @@ class myEntity implements \ArrayAccess {
                     continue;
                 }
                 
-                $where_sql[] = "`{$field}` = :{$field}";
+                if (is_array($value)){
+                    $where_sql[] = "`{$field}` in (:{$field})";
+                } else {
+                    $where_sql[] = "`{$field}` = :{$field}";
+                }
+                
                 $params[":".$field] = $value;
             }
             

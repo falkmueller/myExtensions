@@ -177,6 +177,42 @@ class myEntity implements \ArrayAccess {
         
         return $res[0];
     }
+    
+    public static function count($where = array()){
+         $sql = "SELECT COUNT(*) as c FROM `".static::$_table."`";
+        $params = array();
+        
+        if(!empty($where)){
+            $where_sql = array();
+            $fields = array_keys(static::fields());
+            foreach ($where as $field => $value){
+                if(!in_array($field, $fields)){
+                    continue;
+                }
+                
+                if (is_array($value)){
+                    $where_sql[] = "`{$field}` in (:{$field})";
+                } else {
+                    $where_sql[] = "`{$field}` = :{$field}";
+                }
+                
+                $params[":".$field] = $value;
+            }
+            
+            if(!empty($where_sql)){
+                $sql .= " WHERE ".implode(" AND ", $where_sql);
+            }
+        }
+        
+       $statement = SELF::$db->createQuery($sql, $params);
+       $result = $statement->fetch();
+       
+       if($result){
+           return $result["c"];
+       }
+       
+       return 0;
+    }
 
     public static function select($where = array(), $order = "", $offset = 0, $limit = 0){
         $sql = "SELECT * FROM `".static::$_table."`";

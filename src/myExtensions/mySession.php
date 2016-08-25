@@ -31,13 +31,13 @@ class mySession {
                 return false;  
             }
             
-            if(self::$use_fingerprint && !$this->isFingerprint()){
+            if(static::$use_fingerprint && !$this->isFingerprint()){
                 $this->destroy();
                 return $this->start();
             }
             
             if(self::$refresh_rate){
-                return mt_rand(0, self::refresh_rate) === 0 ? $this->refresh() : true;
+                return mt_rand(0, static::refresh_rate) === 0 ? $this->refresh() : true;
             }
         }
         return true;

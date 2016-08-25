@@ -6,6 +6,9 @@ class mySession {
 
     private static $_instance = null;
     
+    public static $refresh_rate = 0;
+    public static $use_fingerprint = true;
+    
     public static function Instance(){
         
         if (self::$_instance == null) {
@@ -28,12 +31,14 @@ class mySession {
                 return false;  
             }
             
-            if(!$this->isFingerprint()){
+            if(self::use_fingerprint && !$this->isFingerprint()){
                 $this->destroy();
                 return $this->start();
             }
             
-            //return mt_rand(0, 4) === 0 ? $this->refresh() : true; // 1/5
+            if(self::refresh_rate){
+                return mt_rand(0, self::refresh_rate) === 0 ? $this->refresh() : true;
+            }
         }
         return true;
     }

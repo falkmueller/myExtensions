@@ -80,22 +80,52 @@ work with entity
 
 # myHook
 ```php
-    \myExtensions\myHook::Instance()->->registrate("MvcRouterCall:filter", function($instance, $returnvalue, $data){
-            $returnvalue["action"] = "index";
-            return $returnvalue;
-        });
-```
+    use myExtensions\myHook;
 
-```php
-    \myExtensions\myHook::Instance()->->registrate("MvcRouterCall:filter", array($this, 'functionname'));
-```
+    $hooks = myHook::Instance();
 
-```php
-    $routerArguments = \myExtensions\myHook::Instance()->filter("MvcRouterCall:filter", $this, $routerArguments);
-```
+    /* add a filter */
+    $hooks->addFilter("testfilter", function($value){ return "filter-".$value;});
 
-```php
-    \myExtensions\myHook::Instance()->notify("MvcRouterCall:before", $this, $routerArguments);
+    /* call a filter */
+    echo $hooks->filter("testfilter", 1);//filter-1
+    echo "<br/>";
+
+    /* add middleware (callable, anonymouse function) */
+    $hooks->addMiddleware("m", function($res, $next){ 
+        $res .= " M1-before "; 
+        $res = $next($res);
+        $res .= " M1-after ";
+
+        return $res;
+
+    });
+
+    class x {
+
+        static function y ($res, callable $next,$z1, $z2){
+            $res .= " M2-bevore ";
+            $res = $next($res);   
+            $res .= " M2-after ";
+
+            return $res;
+        }
+
+        public function call_me($z1, $z2, $res = ''){
+            $res .= " core ";
+            return $res;
+        }
+
+    }
+
+    * add middleware (callable, static function)*/
+    $hooks->addMiddleware("m", "x::y");
+
+    * call middleware (callable, object function)*/
+    $x = new x();
+    $res = $hooks->middleware("m", array($x, "call_me"),"", 1, 2);
+
+    echo $res; //M1-before M2-bevore core M2-after M1-after
 ```
 
 # mySession

@@ -23,6 +23,6 @@
         "php": ">=5.1.0"
     },
     "autoload": {
-        "psr-0": { "myExtensions": "src/" }
+        "psr-4": { "myExtensions\\": "src" }
     }
 }

@@ -1,0 +1,9 @@
+<?php $this->extend("layout.phtml");?>
+
+Dies ist Inhalt der nicht angezeigt wird, da das Template per Extend eingebettet wird und nur Inhalt von Blöcken übernommen wird
+
+<?php $this->startBlock("content", "APPEND") ?>
+Dies ist ein Test: <?php echo $this->name ?><br/>
+<?php echo $this->testfunction("value"); ?>
+
+<?php $this->endBlock("content") ?>

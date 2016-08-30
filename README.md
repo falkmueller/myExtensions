@@ -135,4 +135,41 @@ work with entity
     echo \myExtensions\mySession::Instance()->get("name");
 ```
 
+# myTemplate
+```php
+    $t = new \myExtensions\myTemplate();
+    $t->addFunction("testfunction", function($value){ return "TestFunction: {$value}"; });
+    $t->setSetting("dir", __dir__.'/templates/');
 
+    echo $t->render("index.phtml", array("name" => "myExtension"));
+```
+
+templates/index.phtml
+```php
+    <?php $this->extend("layout.phtml");?>
+
+    <?php $this->startBlock("content", "APPEND") ?>
+        Dies ist ein Test: <?php echo $this->name ?><br/>
+        <?php echo $this->testfunction("value"); ?>
+    <?php $this->endBlock("content") ?>
+```
+
+templates/layout.phtml
+```php
+    <html>
+        <header>
+
+        </header>
+        <body>
+            HEADER
+
+            <div>
+                <?php $this->startBlock("content") ?>
+                Dies ist der Content
+                <?php $this->endBlock("content") ?>
+            </div>
+
+            <?php $this->insert("footer.phtml"); ?>
+        </body>
+    </html>
+```
